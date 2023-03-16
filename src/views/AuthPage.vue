@@ -77,10 +77,13 @@
   </main>
 </template>
 <script setup>
-import { jsPDF } from "jspdf";
 import axios from 'axios'
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { useUserStore } from './../stores/user';
+import { storeToRefs } from "pinia";
+const userStore = useUserStore()
+const { loggedIn } = storeToRefs(userStore)
 const Router = useRouter()
 const email = ref("test@test.com")
 const password = ref("123456789")
@@ -88,12 +91,16 @@ const isSignup = ref(false)
 const login = async (e) => {
   e.preventDefault();
   try {
+    if (localStorage.getItem("user")) {
+      Router.push({ name: "pdfs" })
+    }
     if (!isSignup.value) {
-      const { data } = await axios.post('https://c141c63a7dfa0b.lhr.life/api/auth/local', {
+      const { data } = await axios.post('http://localhost:1337/api/auth/local', {
         identifier: email.value,
         password: password.value
       })
       const { jwt, user } = data
+      loggedIn.value = true
       localStorage.setItem('user', JSON.stringify(user))
       localStorage.setItem('jwt', JSON.stringify(jwt))
       console.log(data);
@@ -101,15 +108,17 @@ const login = async (e) => {
 
     }
     else {
-      const { data } = await axios.post('https://c141c63a7dfa0b.lhr.life/api/auth/local/register', {
+      const { data } = await axios.post('http://localhost:1337/api/auth/local/register', {
         username: email.value.substring(0, email.value.indexOf("@")),
         email: email.value,
         password: password.value
       })
       const { jwt, user } = data
+      loggedIn.value = true
       localStorage.setItem('user', JSON.stringify(user))
       localStorage.setItem('jwt', JSON.stringify(jwt))
       console.log(data);
+
       Router.push({ name: "pdfs" })
 
     }

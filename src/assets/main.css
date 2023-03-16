@@ -222,7 +222,7 @@ body p {
   margin-bottom: 1rem;
 }
 .singleColor label {
-  padding: 2rem 2rem;
+  padding: 1rem 2rem;
   font-weight: 400;
   font-size: 1.7rem;
   color: #000000;
@@ -319,13 +319,13 @@ body p {
   -moz-transition: all 0.4s;
   -ms-transition: all 0.4s;
   -o-transition: all 0.4s;
-  padding: 2rem 2rem;
+  padding: 1rem 2rem;
   font-size: 1.7rem;
   border-width: 1px;
 }
 
 .hiddenInputField .visiableInput {
-  padding: 2rem 2rem;
+  padding: 1rem 2rem;
   height: auto;
   font-size: 1.7rem;
   border-width: 1px;

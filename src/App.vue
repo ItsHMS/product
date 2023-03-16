@@ -1,12 +1,4 @@
-<script setup>
-/*
-To be done
-1.auth pages
-2.vue based or html based
-*/
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
+
 
 <template>
   <!-- <header>
@@ -19,8 +11,8 @@ import HelloWorld from './components/HelloWorld.vue'
             <RouterLink to="/">Home</RouterLink>
             <RouterLink to="/about">About</RouterLink>
           </nav>
-        </div>
-      </header> -->
+                                </div>
+                              </header> -->
   <div>
     <header id="header" class="loginHeader">
       <div class="container">
@@ -47,16 +39,20 @@ import HelloWorld from './components/HelloWorld.vue'
                   <a class="nav-link" href="#">Blog</a>
                 </li>
 
-                <li class="nav-item">
-                  <a class="nav-link" href="#">Log In</a>
+                <li style="cursor: pointer;" v-if="!loggedIn" @click="login" class="nav-item">
+                  <a class="nav-link">Log In</a>
                 </li>
 
                 <li class="nav-item">
-                  <a class="nav-link btn" href="#">Conatct</a>
+                  <a class="nav-link btn" @click="newProject">New Project</a>
                 </li>
 
-                <li class="nav-item">
-                  <a class="nav-link btn" href="#">Sign Up</a>
+                <li v-if="!loggedIn" @click="login" class="nav-item">
+                  <a class="nav-link btn">Sign Up</a>
+                </li>
+
+                <li v-if="loggedIn" @click="logout" class="nav-item">
+                  <a class="nav-link btn">Logout</a>
                 </li>
               </ul>
 
@@ -69,8 +65,44 @@ import HelloWorld from './components/HelloWorld.vue'
     <RouterView />
   </div>
 </template>
+<script setup>
+/*
+To be done
+1.auth pages
+2.vue based or html based
+*/
+import { RouterLink, RouterView } from 'vue-router'
+import { useUserStore } from './stores/user';
+import { storeToRefs } from "pinia";
 
-<style scoped>
+import HelloWorld from './components/HelloWorld.vue'
+import { useRouter, useRoute } from 'vue-router';
+import { ref, onMounted, onUpdated, watch } from 'vue';
+const store = useUserStore();
+const { loggedIn } = storeToRefs(store)
+const Router = useRouter()
+const Route = useRoute()
+onMounted(() => {
+  console.log("mounted");
+  if (localStorage.getItem('user')) {
+    loggedIn.value = true
+  } else {
+    loggedIn.value = false
+  }
+})
+const logout = () => {
+  localStorage.clear()
+  Router.push({ name: 'home' })
+  loggedIn.value = false
 
+}
+const login = () => {
+  Router.push({ name: 'auth' })
 
-</style>
+}
+const newProject = () => {
+  Router.push({ name: 'home' })
+}
+</script>
+
+<style scoped></style>

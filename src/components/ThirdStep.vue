@@ -32,8 +32,8 @@
 
                     <div class="text-center">
                         <a @click="pdfMaker" class="downloadBtn btn">
-                            <span v-if="loading" style="width: 2rem; height: 2rem;" class="spinner-border spinner-border-sm" role="status"
-                                        aria-hidden="true"></span>
+                            <span v-if="loading" style="width: 2rem; height: 2rem;" class="spinner-border spinner-border-sm"
+                                role="status" aria-hidden="true"></span>
                             <span v-else>Download now</span>
                         </a>
                     </div>
@@ -53,8 +53,18 @@ import { storeToRefs } from "pinia";
 const Router = useRouter()
 const loading = ref(false)
 const store = useProductStore();
-const { productRequirements, title } = storeToRefs(store);
+const { productRequirements, title, color, inspiration, material, productImages, specification, step } = storeToRefs(store);
 
+const resetStoreValues = () => {
+    productRequirements.value = ""
+    title.value = ""
+    color.value = ""
+    inspiration.value = ""
+    material.value = ""
+    productImages.value = ""
+    specification.value = ""
+    step.value = 1
+}
 const pdfMaker = async () => {
     loading.value = true
     const pdf = new jsPDF();
@@ -89,22 +99,25 @@ const pdfMaker = async () => {
             text: productRequirementsText
         })
     }))
-    axios.post("https://c141c63a7dfa0b.lhr.life/api/upload", data)
+    axios.post("http://localhost:1337/api/upload", data)
         .then((response) => {
             const fileId = response.data[0].id
+            localStorage.setItem('pdfID', fileId)
             const meta = JSON.parse(response.data[0].alternativeText)
             console.log(meta);
             console.log(fileId);
+            resetStoreValues()
+            localStorage.removeItem("images")
             if (localStorage.getItem("user")) {
                 Router.push({ name: "pdfs" })
             }
-            else{
-                Router.push({name:"auth"})
+            else {
+                Router.push({ name: "auth" })
             }
         })
         .catch((error) => {
             console.log(error);
-        }).finally(()=>{
+        }).finally(() => {
             loading.value = false
         })
 }

@@ -26,7 +26,7 @@
                             </div>
                         </div>
 
-                        <div class="card" v-for="(pdf,i) in pdfsArray" :key="i">
+                        <div class="card" v-for="(pdf, i) in pdfsArray" :key="i">
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-4">
@@ -40,7 +40,8 @@
                                         </p>
                                     </div>
                                     <div class="col-3 text-end">
-                                        <a :href="'https://c141c63a7dfa0b.lhr.life'+pdf.url" class="btn downloadBtn">Download Pdf</a>
+                                        <a :href="'http://localhost:1337' + pdf.url" class="btn downloadBtn">Download
+                                            Pdf</a>
                                     </div>
                                 </div>
                             </div>
@@ -60,13 +61,34 @@
 </template>
 <script setup>
 import axios from 'axios';
+import { useRouter } from 'vue-router';
 import { ref, onMounted } from 'vue';
+const Router = useRouter()
 const pdfsArray = ref([])
 onMounted(async () => {
     try {
-        const res = await axios.get("https://c141c63a7dfa0b.lhr.life/api/upload/files")
-        console.log(res);
-        pdfsArray.value = res.data
+        if (!localStorage.getItem("user")) {
+            Router.push({ name: "home" })
+        }
+        if (localStorage.getItem('pdfID')) {
+            const res = await axios.get(`http://localhost:1337/api/custom-api/get-all-pdfs?pdfID=${localStorage.getItem('pdfID')}`, {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem("jwt"))}`
+                }
+            })
+            console.log(res);
+            pdfsArray.value = res.data.pdfsArray
+            localStorage.removeItem('pdfID')
+        }
+        else {
+            const res = await axios.get("http://localhost:1337/api/custom-api/get-all-pdfs", {
+                headers: {
+                    Authorization: `Bearer ${JSON.parse(localStorage.getItem("jwt"))}`
+                }
+            })
+            console.log(res);
+            pdfsArray.value = res.data.pdfsArray
+        }
     } catch (error) {
         console.log(error);
     }

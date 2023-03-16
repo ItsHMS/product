@@ -3,6 +3,7 @@ import { defineStore } from "pinia";
 import axios from "axios";
 
 export const useProductStore = defineStore("product", () => {
+  const login = ref(false)
   const productImages = ref([]);
   const step = ref(1);
   const title = ref("");
@@ -17,8 +18,10 @@ export const useProductStore = defineStore("product", () => {
   //   }
   const getProduct = async (type = "image") => {
     try {
+      localStorage.setItem("title",title.value)
+      localStorage.setItem("specification",specification.value)
       const response = await axios.post(
-        "https://c141c63a7dfa0b.lhr.life/api/custom-api/get-product-details",
+        "http://localhost:1337/api/custom-api/get-product-details",
         {
           type: type,
           title: title.value,
@@ -61,6 +64,7 @@ export const useProductStore = defineStore("product", () => {
     color,
     inspiration,
     productRequirements,
+    login
   };
   //   return { count, doubleCount, productImages ,getProduct}
 });

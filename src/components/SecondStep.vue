@@ -25,7 +25,19 @@
                     <div class="col-md-7">
 
                         <div class="colorSelectionBoxCtrl">
+                            <div class="hiddenInputField">
+                                <h3>Title</h3>
 
+                                <input style="margin-bottom:2rem ;" v-model="title" type="text" name=""
+                                    id="selectCustomColor" class="form-control hiddenInput" placeholder="Title">
+
+                            </div>
+                            <div class="hiddenInputField">
+                                <h3>Specification</h3>
+
+                                <input style="margin-bottom:2rem ;" v-model="specification" type="text" name=""
+                                    id="selectCustomColor" class="form-control hiddenInput" placeholder="Specification">
+                            </div>
                             <div class="singlePartOfColor">
                                 <h3 class="colorTitle">Select Color</h3>
 
@@ -150,15 +162,17 @@
                             </div>
 
                             <div class="singlePartOfColor text-primary d-flex justify-content-center pt-4">
+                                <button @click.prevent="resetValues" class="btn genBtn">Reset</button>
+
                                 <button @click.prevent="getProduct('image')" class="btn genBtn">
-                                    <span v-if="regenerateLoader" style="width: 2rem; height: 2rem;" class="spinner-border spinner-border-sm" role="status"
-                                        aria-hidden="true"></span>
+                                    <span v-if="regenerateLoader" style="width: 2rem; height: 2rem;"
+                                        class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                     <span v-else>Regenerate</span>
 
                                 </button>
                                 <a @click="getProduct('text')" class="btn active genBtn">
-                                    <span v-if="nextLoader" style="width: 2rem; height: 2rem;" class="spinner-border spinner-border-sm" role="status"
-                                        aria-hidden="true"></span>
+                                    <span v-if="nextLoader" style="width: 2rem; height: 2rem;"
+                                        class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                     <span v-else>Next</span>
 
                                 </a>
@@ -176,13 +190,20 @@
 import { ref } from 'vue'
 import { useProductStore } from './../stores/product'; import { storeToRefs } from "pinia";
 const store = useProductStore();
-const { productImages, color, inspiration, material, secondStep } = storeToRefs(store);
+const { productImages, color, inspiration, material, specification, title } = storeToRefs(store);
 const customColor = ref('')
 const customMaterial = ref('')
 const customInspiration = ref('')
 const regenerateLoader = ref(false)
 const nextLoader = ref(false)
 console.log(productImages);
+const resetValues = () => {
+    title.value = ""
+    color.value = []
+    inspiration.value = []
+    material.value = []
+    specification.value = ""
+}
 const getProduct = async (type) => {
     try {
         if (type == "image") {
@@ -202,6 +223,10 @@ const getProduct = async (type) => {
         }
         if (customMaterial.value) {
             inspiration.value.push(customInspiration.value)
+        }
+        if(type=="text"){
+            title.value = localStorage.getItem('title')
+            specification.value = localStorage.getItem('specification')
         }
         await store.getProduct(type)
     } catch (error) {
