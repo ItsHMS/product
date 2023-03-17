@@ -91,7 +91,8 @@ onMounted(() => {
   }
 })
 const logout = () => {
-  localStorage.clear()
+  localStorage.removeItem("user")
+  localStorage.removeItem("jwt")
   Router.push({ name: 'home' })
   loggedIn.value = false
 
