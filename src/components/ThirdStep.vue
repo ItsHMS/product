@@ -11,7 +11,7 @@
                         <div class="notes">
                             <p class="noteText">Notes</p>
                             <button class="btn arrowBtn">
-                                <img src="images/rightArrow.png" alt="rightArrow" class="img-fluid">
+                                <img src="@/assets/images/rightArrow.png" alt="rightArrow" class="img-fluid">
                             </button>
                         </div>
                     </div> -->
@@ -25,7 +25,7 @@
                         <div class="notes">
                             <p class="noteText">Notes</p>
                             <button class="btn arrowBtn">
-                                <img src="images/rightArrow.png" alt="rightArrow" class="img-fluid">
+                                <img src="@/assets/images/rightArrow.png" alt="rightArrow" class="img-fluid">
                             </button>
                         </div>
                     </div>

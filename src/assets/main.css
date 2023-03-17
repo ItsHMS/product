@@ -132,7 +132,7 @@ body p {
 }
 
 #bannerOne {
-  background-image: url(../images/bannerBG.png);
+  background-image: url(@/assets/images/bannerBG.png);
   background-repeat: no-repeat;
   padding-bottom: 6rem;
   background-size: contain;
@@ -289,7 +289,7 @@ body p {
   padding-bottom: 6rem;
 }
 #colorSelectionOne .bgTwo {
-  background-image: url(../images/bannerBG-2.png);
+  background-image: url(@/assets/images/bannerBG-2.png);
   background-repeat: no-repeat;
   background-position: left;
 }

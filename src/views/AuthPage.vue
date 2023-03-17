@@ -5,8 +5,8 @@
 
     <!-- <TheWelcome /> -->
     <section id="signUp">
-      <img src="images/el-1.png" alt="elips" class="img-fluid elips-1">
-      <img src="images/el-2.png" alt="elips" class="img-fluid elips-2">
+      <img src="@/assets/images/el-1.png" alt="elips" class="img-fluid elips-1">
+      <img src="@/assets/images/el-2.png" alt="elips" class="img-fluid elips-2">
 
       <div class="container">
         <div class="row">
@@ -16,7 +16,7 @@
                 <span>Revolutionizing</span> Product Design <span>with AI Technology</span>
               </h2>
               <div class="contactBanner">
-                <img src="images/contactBanner.png" alt="contactBanenr" class="img-fluid">
+                <img src="@/assets/images/contactBanner.png" alt="contactBanenr" class="img-fluid">
               </div>
             </div>
           </div>
@@ -54,15 +54,15 @@
                   </div>
 
                   <p class="loginWith d-flex align-items-center justify-content-center">
-                    <img src="images/line.png" alt="line" class="img-fluid">
+                    <img src="@/assets/images/line.png" alt="line" class="img-fluid">
                     <span class="px-3 font-weight-500">
                       lOGIN WITH
                     </span>
-                    <img src="images/line.png" alt="line" class="img-fluid">
+                    <img src="@/assets/images/line.png" alt="line" class="img-fluid">
                   </p>
 
                   <a @click="pdfMaker" class="googleLogin btn">
-                    <img src="images/google.png" alt="google" class="img-fluid">
+                    <img src="@/assets/images/google.png" alt="google" class="img-fluid">
                     Google
                   </a>
 

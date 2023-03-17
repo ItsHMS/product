@@ -19,11 +19,11 @@
         <nav class="navbar navbar-expand-lg">
           <div class="container-fluid">
             <a class="navbar-brand" href="#">
-              <img src="images/logo.png" alt="logo" class="img-fluid logo">
+              <img src="@/assets/images/logo.png" alt="logo" class="img-fluid logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
               aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-              <img src="images/menu.png" alt="menu" class="img-fluid">
+              <img src="@/assets/images/menu.png" alt="menu" class="img-fluid">
             </button>
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul class="navbar-nav me-auto ms-auto mb-2 mb-lg-0">
