@@ -99,7 +99,7 @@ const pdfMaker = async () => {
             text: productRequirementsText
         })
     }))
-    axios.post("http://localhost:1337/api/upload", data)
+    axios.post("http://185.28.23.2:1337/api/upload", data)
         .then((response) => {
             const fileId = response.data[0].id
             localStorage.setItem('pdfID', fileId)

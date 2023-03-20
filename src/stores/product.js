@@ -21,7 +21,7 @@ export const useProductStore = defineStore("product", () => {
       localStorage.setItem("title",title.value)
       localStorage.setItem("specification",specification.value)
       const response = await axios.post(
-        "http://localhost:1337/api/custom-api/get-product-details",
+        "http://185.28.23.2:1337/api/custom-api/get-product-details",
         {
           type: type,
           title: title.value,

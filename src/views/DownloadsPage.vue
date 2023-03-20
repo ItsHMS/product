@@ -40,7 +40,7 @@
                                         </p>
                                     </div>
                                     <div class="col-3 text-end">
-                                        <a :href="'http://localhost:1337' + pdf.url" class="btn downloadBtn">Download
+                                        <a :href="'http://185.28.23.2:1337' + pdf.url" class="btn downloadBtn">Download
                                             Pdf</a>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@ onMounted(async () => {
             Router.push({ name: "home" })
         }
         if (localStorage.getItem('pdfID')) {
-            const res = await axios.get(`http://localhost:1337/api/custom-api/get-all-pdfs?pdfID=${localStorage.getItem('pdfID')}`, {
+            const res = await axios.get(`http://185.28.23.2:1337/api/custom-api/get-all-pdfs?pdfID=${localStorage.getItem('pdfID')}`, {
                 headers: {
                     Authorization: `Bearer ${JSON.parse(localStorage.getItem("jwt"))}`
                 }
@@ -81,7 +81,7 @@ onMounted(async () => {
             localStorage.removeItem('pdfID')
         }
         else {
-            const res = await axios.get("http://localhost:1337/api/custom-api/get-all-pdfs", {
+            const res = await axios.get("http://185.28.23.2:1337/api/custom-api/get-all-pdfs", {
                 headers: {
                     Authorization: `Bearer ${JSON.parse(localStorage.getItem("jwt"))}`
                 }
