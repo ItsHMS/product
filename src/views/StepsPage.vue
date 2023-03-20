@@ -10,7 +10,7 @@
 
           <li :class="step==2||step==3?'active':'' ">
             <span>2</span>
-            <p>Description</p>
+            <p>Design</p>
           </li>
 
           <li :class="step==3?'active':'' ">
