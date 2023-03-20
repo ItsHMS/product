@@ -18,7 +18,7 @@
       <div class="container">
         <nav class="navbar navbar-expand-lg">
           <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
               <img src="@/assets/images/logo.png" alt="logo" class="img-fluid logo">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
@@ -71,13 +71,12 @@ To be done
 1.auth pages
 2.vue based or html based
 */
-import { RouterLink, RouterView } from 'vue-router'
-import { useUserStore } from './stores/user';
 import { storeToRefs } from "pinia";
+import { RouterView } from 'vue-router';
+import { useUserStore } from './stores/user';
 
-import HelloWorld from './components/HelloWorld.vue'
-import { useRouter, useRoute } from 'vue-router';
-import { ref, onMounted, onUpdated, watch } from 'vue';
+import { onMounted } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 const store = useUserStore();
 const { loggedIn } = storeToRefs(store)
 const Router = useRouter()
