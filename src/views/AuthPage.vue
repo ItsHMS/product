@@ -95,7 +95,7 @@ const login = async (e) => {
       Router.push({ name: "pdfs" })
     }
     if (!isSignup.value) {
-      const { data } = await axios.post('http://localhost:1337/api/auth/local', {
+      const { data } = await axios.post('http://185.28.23.2:1337/api/auth/local', {
         identifier: email.value,
         password: password.value
       })
@@ -108,7 +108,7 @@ const login = async (e) => {
 
     }
     else {
-      const { data } = await axios.post('http://localhost:1337/api/auth/local/register', {
+      const { data } = await axios.post('http://185.28.23.2:1337/api/auth/local/register', {
         username: email.value.substring(0, email.value.indexOf("@")),
         email: email.value,
         password: password.value
