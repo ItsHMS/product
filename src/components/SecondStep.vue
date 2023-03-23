@@ -38,6 +38,12 @@
                                 <input style="margin-bottom:2rem ;" v-model="specification" type="text" name=""
                                     id="selectCustomColor" class="form-control hiddenInput" placeholder="Specification">
                             </div>
+                            <div class="hiddenInputField">
+                                <h3>Prompt</h3>
+
+                                <textarea readonly :value="prompt" name="" id="" cols="30" rows="5" class="form-control"
+                                    placeholder="write here...."></textarea>
+                            </div>
                             <div class="singlePartOfColor">
                                 <h3 class="colorTitle">Select Color</h3>
 
@@ -187,7 +193,7 @@
     </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { useProductStore } from './../stores/product'; import { storeToRefs } from "pinia";
 const store = useProductStore();
 const { productImages, color, inspiration, material, specification, title } = storeToRefs(store);
@@ -196,7 +202,16 @@ const customMaterial = ref('')
 const customInspiration = ref('')
 const regenerateLoader = ref(false)
 const nextLoader = ref(false)
-console.log(productImages);
+const prompt = ref("")
+onMounted(() => {
+    prompt.value = generateString()
+
+}),
+    console.log(productImages);
+watch(() => [color, inspiration, material, specification, title, customColor, customMaterial, customInspiration], () => {
+    prompt.value = generateString()
+    console.log("watcher called")
+}, { deep: true })
 const resetValues = () => {
     title.value = ""
     color.value = []
@@ -224,7 +239,7 @@ const getProduct = async (type) => {
         if (customMaterial.value) {
             inspiration.value.push(customInspiration.value)
         }
-        if(type=="text"){
+        if (type == "text") {
             title.value = localStorage.getItem('title')
             specification.value = localStorage.getItem('specification')
         }
@@ -236,4 +251,61 @@ const getProduct = async (type) => {
         nextLoader.value = false
     }
 }
+let generateString = () => {
+    let string = "";
+    if (color.value.length > 0) {
+        if (color.value.length === 1) {
+            string += `, in color of  ${color.value[0]}`;
+        } else {
+            color.value.forEach((item, index) => {
+                if (index === color.value.length - 1) {
+                    string += `and ${item}`;
+                } else if (index === 0) {
+                    string += `, in colors of ${item},`;
+                } else {
+                    string += `${item}, `;
+                }
+            })
+        }
+        string += " " + customColor.value + " ";
+    }
+
+    if (material.value.length > 0) {
+        if (material.value.length === 1) {
+            string += `and its material should be ${material.value[0]}`;
+        } else {
+            material.value.forEach((item, index) => {
+                if (index === material.value.length - 1) {
+                    string += `and ${item}`;
+                } else if (index === 0) {
+                    string += `and its material should be ${item},`;
+                } else {
+                    string += `${item}, `;
+                }
+            })
+        }
+        string += " " + customMaterial.value + " ";
+    }
+
+    if (inspiration.value.length > 0) {
+        if (inspiration.value.length === 1) {
+            string += `, design inspiration from ${inspiration.value[0]} ` + customInspiration;
+        } else {
+            inspiration.value.forEach((item, index) => {
+                if (index === inspiration.value.length - 1) {
+                    string += ` and ${item}`;
+                } else if (index === 0) {
+                    string += `,  design inspirations from ${item},`;
+                } else {
+                    string += `${item}, `;
+                }
+            })
+            string += " " + customInspiration.value
+        }
+    }
+    string = `Generate product images with the following title "${title.value}" and specifications "${specification.value} "` + string
+    return string;
+}
+
+
 </script>
