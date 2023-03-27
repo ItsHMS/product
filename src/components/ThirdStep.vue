@@ -15,6 +15,12 @@
                             </button>
                         </div>
                     </div> -->
+                    
+                     <div class="hiddenInputField">
+                                <h3>Prompt</h3>
+                                <textarea readonly :value="prompt" name="" id="" cols="30" rows="5" class="form-control"
+                                    placeholder="write here...."></textarea>
+                            </div>
 
 
                     <h3 class="intro">Product Requirements</h3>
